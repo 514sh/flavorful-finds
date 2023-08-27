@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  frontend:
+    image: 514sh/recipe-finder-frontend:0.0.5
+    command: bash -c "npm run start:prod"
+    container_name: recipe-finder-frontend
+
+  backend:
+    image: 514sh/recipe-finder-backend:0.0.0
+    command: gunicorn --bind 0.0.0.0:5000 recipe-finder.app:app
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DATABASE: postgres
+    container_name: recipe-finder-backend
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13.2-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: postgres
+    container_name: db_postgres
+    volumes:
+      - database:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  reverse-proxy:
+    image: nginx:1.25.2-alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+
+volumes:
+  database:
