@@ -3,30 +3,51 @@ import recipeService from "./services/recipes";
 
 const App = () => {
   const baseUrl = BACKEND_URL;
-  const [recipes, setRecipes] = useState([]);
-  const [search, setSearch] = useState("");
-  const [searchedRecipes, setSearchRecipes] = useState([]);
-  const [isSearchByIngredients, setIsSearchByIngredients] = useState(true);
+  const [keywords, setKeywords] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResult, setSearchResult] = useState(null);
 
   useEffect(() => {
-    recipeService.getAll().then((recipes) => setRecipes(recipes));
-    console.log("recipes", recipes);
-  }, []);
+    console.log("result", searchResult);
+  }, [searchResult]);
 
-  console.log("recipes outside", recipes);
+  useEffect(() => {
+    console.log("keywords", keywords);
+  }, [keywords]);
   const handleSendSearch = async (e) => {
     e.preventDefault();
-    setSearch(search.toLowerCase());
+    const response = await recipeService.searchByIngredients(keywords);
+    setSearchResult(response);
+    setKeywords([]);
+    setSearchInput("");
   };
 
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
+  const handleSearchInputChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const handleSearchKeyPress = (e) => {
+    if (e.key === "Enter" && searchInput) {
+      setKeywords(keywords.concat(searchInput.toLowerCase().replace(" ", "")));
+      setSearchInput("");
+    }
   };
 
   return (
     <>
-      <input onChange={handleSearchChange} value={search} />
+      <input
+        onKeyPress={handleSearchKeyPress}
+        onChange={handleSearchInputChange}
+        value={searchInput}
+      />
       <button onClick={handleSendSearch}>Search</button>
+      <ul>
+        {searchResult
+          ? searchResult.map((recipe) => (
+              <li key={recipe.id}>{recipe.title}</li>
+            ))
+          : "search now"}
+      </ul>
     </>
   );
 };

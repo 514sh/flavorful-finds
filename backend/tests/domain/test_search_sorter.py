@@ -27,9 +27,9 @@ def test_search_by_ingredients(searchsorter):
                 "cookingoil"}
     result = searchsorter.search_by_ingredients(keywords)
     assert len(result) == 3
-    assert result[0] == 6
-    assert result[1] == 17
-    assert result[2] == 15
+    assert result[0]["id"] == 6
+    assert result[1]["id"] == 17
+    assert result[2]["id"] == 15
 
 
 def test_search_by_title(searchsorter):
@@ -41,4 +41,4 @@ def test_search_by_title(searchsorter):
 
     result = searchsorter.search_by_title(keywords)
     assert len(result) == 4
-    assert result[0] == 8
+    assert result[0]["id"] == 8
