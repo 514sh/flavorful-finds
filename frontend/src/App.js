@@ -1,41 +1,32 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import recipeService from "./services/recipes";
 
 const App = () => {
   const baseUrl = BACKEND_URL;
-  const [view, setView] = useState(true);
-  const [message, setMessage] = useState("");
-  const [inputValue, setInputValue] = useState("");
+  const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState("");
+  const [searchedRecipes, setSearchRecipes] = useState([]);
+  const [isSearchByIngredients, setIsSearchByIngredients] = useState(true);
 
   useEffect(() => {
-    axios.get(`${baseUrl}/hello`).then((response) => {
-      console.log(response.data);
-      setMessage(response.data.message);
-    });
-  }, [view]);
+    recipeService.getAll().then((recipes) => setRecipes(recipes));
+    console.log("recipes", recipes);
+  }, []);
 
-  console.log("this is me", baseUrl);
-  const handleClick = async (e) => {
+  console.log("recipes outside", recipes);
+  const handleSendSearch = async (e) => {
     e.preventDefault();
-    const obj = { message: inputValue };
-    const response = await axios.post(`${baseUrl}/hello`, obj);
-    console.log(response.data);
-    setInputValue("");
-    setView(!view);
+    setSearch(search.toLowerCase());
   };
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
   };
+
   return (
     <>
-      <h1>hello world</h1>
-      <input onChange={handleInputChange} value={inputValue}></input>
-      <button onClick={handleClick}>send</button>
-      <ul>{message ? message.map((mes) => <li key={mes}>{mes}</li>) : ""}</ul>
-      <h3>
-        from: button {view === "" ? "no view" : "message sent successfully"}
-      </h3>
+      <input onChange={handleSearchChange} value={search} />
+      <button onClick={handleSendSearch}>Search</button>
     </>
   );
 };
