@@ -1,4 +1,3 @@
-from recipefinder.domain.recipe import Recipe
 from recipefinder.domain.searchsorter import SearchSorter
 from tests.recipes_data import recipes_data
 from flask import Flask, jsonify, request
@@ -42,7 +41,6 @@ def get_all_recipes():
 @app.route("/api/recipes/ingredients")
 def search_by_ingredients():
     keywords = set(request.args.getlist('keywords'))
-    print(keywords)
     search_sorter = SearchSorter(recipe_list=recipes_data)
     result = search_sorter.search_by_ingredients(keywords)
     return jsonify(result)
@@ -51,7 +49,6 @@ def search_by_ingredients():
 @app.route("/api/recipes/title")
 def search_by_title():
     keywords = set(request.args.getlist('keywords'))
-    print(keywords)
     search_sorter = SearchSorter(recipe_list=recipes_data)
     result = search_sorter.search_by_title(keywords)
     return jsonify(result)
@@ -85,7 +82,6 @@ def post_hello():
     conn = None
     try:
         data = request.get_json()
-        print(f"asdfsdfa has {data}")
         with psycopg2.connect(**db_params) as conn:
             with conn.cursor() as cur:
                 cur.execute("INSERT INTO hello (message) VALUES (%s)",
