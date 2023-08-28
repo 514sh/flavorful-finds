@@ -1,10 +1,14 @@
+from recipefinder.domain.recipe import Recipe
+from recipefinder.domain.searchsorter import SearchSorter
+from tests.recipes_data import recipes_data
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import psycopg2
 app = Flask(__name__)
 CORS(app)
 
-hello = [{"message": "from flask"}]
+
+recipes = []
 
 db_params_local = {
     'dbname': 'postgres',
@@ -22,6 +26,35 @@ db_params = {
     'host': 'db',
     'port': '5432'
 }
+
+
+@app.route("/")
+def root():
+    return jsonify({"message": "hello"})
+
+
+@app.route("/api/recipes")
+def get_all_recipes():
+    recipes = recipes_data
+    return jsonify(recipes_data)
+
+
+@app.route("/api/recipes/ingredients")
+def search_by_ingredients():
+    keywords = set(request.args.getlist('keywords'))
+    print(keywords)
+    search_sorter = SearchSorter(recipe_list=recipes_data)
+    result = search_sorter.search_by_ingredients(keywords)
+    return jsonify(result)
+
+
+@app.route("/api/recipes/title")
+def search_by_title():
+    keywords = set(request.args.getlist('keywords'))
+    print(keywords)
+    search_sorter = SearchSorter(recipe_list=recipes_data)
+    result = search_sorter.search_by_title(keywords)
+    return jsonify(result)
 
 
 @app.route("/hello")
