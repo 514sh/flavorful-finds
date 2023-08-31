@@ -64,24 +64,24 @@ jobs:
           file: ./Dockerfile.backend
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-finder-backend:latest
-      - name: SCP nginx.conf
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.AWS_HOST }}
-          username: ${{ secrets.AWS_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.AWS_PORT }}
-          source: nginx.conf
-          target: /home/${{ secrets.AWS_USERNAME }}/nginx.conf
-      - name: SCP docker-compose-explicit.yml
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.AWS_HOST }}
-          username: ${{ secrets.AWS_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.AWS_PORT }}
-          source: docker-compose-explicit.yml
-          target: /home/${{ secrets.AWS_USERNAME }}/docker-compose.yml
+      # - name: SCP nginx.conf
+      #   uses: appleboy/scp-action@v0.1.4
+      #   with:
+      #     host: ${{ secrets.AWS_HOST }}
+      #     username: ${{ secrets.AWS_USERNAME }}
+      #     key: ${{ secrets.SSH_KEY }}
+      #     port: ${{ secrets.AWS_PORT }}
+      #     source: nginx.conf
+      #     target: /home/${{ secrets.AWS_USERNAME }}/nginx.conf
+      # - name: SCP docker-compose-explicit.yml
+      #   uses: appleboy/scp-action@v0.1.4
+      #   with:
+      #     host: ${{ secrets.AWS_HOST }}
+      #     username: ${{ secrets.AWS_USERNAME }}
+      #     key: ${{ secrets.SSH_KEY }}
+      #     port: ${{ secrets.AWS_PORT }}
+      #     source: docker-compose-explicit.yml
+      #     target: /home/${{ secrets.AWS_USERNAME }}/docker-compose.yml
       - name: executing remote ssh commands to ec2
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -89,5 +89,6 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.AWS_PORT }}
-          script_stop: true
-          script: docker-compose down && docker-compose up -d
+          script: |
+            docker-compose down
+            docker-compose up -d
