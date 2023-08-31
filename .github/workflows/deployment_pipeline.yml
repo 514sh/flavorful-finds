@@ -29,6 +29,7 @@ jobs:
           npm install
       - name: build react app
         run: |
+          cd frontend
           npm run build
       - name: python test
         run: |
