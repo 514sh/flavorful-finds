@@ -59,4 +59,4 @@ jobs:
           context: .
           file: ./Dockerfile.backend
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-finder-frontend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-finder-backend:latest
