@@ -71,8 +71,8 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.AWS_PORT }}
-          source: "./nginx.conf"
-          target: "./nginx.conf"
+          source: nginx.conf
+          target: /home/${{ secrets.AWS_USERNAME }}/nginx.conf
       - name: SCP docker-compose-explicit.yml
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -80,8 +80,8 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.AWS_PORT }}
-          source: "./docker-compose-explicit.yml"
-          target: "./docker-compose.yml"
+          source: docker-compose-explicit.yml
+          target: /home/${{ secrets.AWS_USERNAME }}/docker-compose.yml
       - name: executing remote ssh commands to ec2
         uses: appleboy/ssh-action@v0.1.7
         with:
