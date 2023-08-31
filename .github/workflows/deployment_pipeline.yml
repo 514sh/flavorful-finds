@@ -64,3 +64,21 @@ jobs:
           file: ./Dockerfile.backend
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/recipe-finder-backend:latest
+      - name: SCP nginx.conf
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.AWS_PORT }}
+          source: "./nginx.conf"
+          target: "./nginx.conf"
+      - name: SCP docker-compose-explicit.yml
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.AWS_PORT }}
+          source: "./docker-compose-explicit.yml"
+          target: "./docker-compose-explicit.yml"
