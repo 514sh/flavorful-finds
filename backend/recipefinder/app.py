@@ -1,4 +1,5 @@
 from recipefinder.domain.searchsorter import SearchSorter
+from recipefinder.repository.csv_repo import file_to_list_of_dict
 from tests.recipes_data import recipes_data
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -7,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-recipes = []
+recipe_list = file_to_list_of_dict()
 
 db_params_local = {
     'dbname': 'postgres',
@@ -34,23 +35,30 @@ def root():
 
 @app.route("/api/recipes")
 def get_all_recipes():
-    recipes = recipes_data
-    return jsonify(recipes_data)
+    return jsonify(recipe_list)
 
 
 @app.route("/api/recipes/ingredients")
 def search_by_ingredients():
+    offset = int(request.args.get('offset', 0))
+    batch = 20
+
     keywords = set(request.args.getlist('keywords'))
-    search_sorter = SearchSorter(recipe_list=recipes_data)
-    result = search_sorter.search_by_ingredients(keywords)
+    search_sorter = SearchSorter(recipe_list=recipe_list)
+    result = search_sorter.search_by_ingredients(
+        keywords)[offset:offset + batch]
     return jsonify(result)
 
 
 @app.route("/api/recipes/title")
 def search_by_title():
+    offset = int(request.args.get('offset', 0))
+    batch = 20
+
     keywords = set(request.args.getlist('keywords'))
-    search_sorter = SearchSorter(recipe_list=recipes_data)
-    result = search_sorter.search_by_title(keywords)
+    search_sorter = SearchSorter(recipe_list=recipe_list)
+    result = search_sorter.search_by_title(
+        keywords)[offset:offset + batch]
     return jsonify(result)
 
 

@@ -1,4 +1,4 @@
-GET http://localhost:5000/api/recipes
+GET http://localhost:5000/api/recipes?limit=20&offset=0
 
 ###
 GET http://localhost:5000/api/recipes/ingredients?keywords=soysauce&keywords=sesameoil&keywords=mincedgarlic&keywords=ginger&keywords=cookingoil

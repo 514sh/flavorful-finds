@@ -4,8 +4,11 @@ docs
 # backend
 .venv
 __pycache__/
+backend/recipefinder/repository/recipe_data_set.csv
 
 
 # frontend
 frontend/.env
 frontend/node_modules
+
+.vscode
