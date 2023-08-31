@@ -4,7 +4,7 @@ const webpack = require("webpack");
 const config = (env, argv) => {
   const backend_url =
     argv.mode === "production"
-      ? "http://18.207.174.169:80/api"
+      ? "http://3.81.22.175/api"
       : "http://localhost:5000/api";
 
   return {
