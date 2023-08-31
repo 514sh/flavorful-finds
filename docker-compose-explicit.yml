@@ -2,12 +2,12 @@ version: "3.8"
 
 services:
   frontend:
-    image: 514sh/recipe-finder-frontend:0.0.5
+    image: 514sh/recipe-finder-frontend:latest
     command: bash -c "npm run start:prod"
     container_name: recipe-finder-frontend
 
   backend:
-    image: 514sh/recipe-finder-backend:0.0.0
+    image: 514sh/recipe-finder-backend:latest
     command: gunicorn --bind 0.0.0.0:5000 recipefinder.app:app
     environment:
       POSTGRES_HOST: db

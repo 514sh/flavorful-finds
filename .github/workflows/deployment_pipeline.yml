@@ -23,19 +23,23 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18.17.0"
-      - name: npm install
+      - name: Install Node Dependencies
         run: |
           cd frontend
           npm install
-      - name: build react app
+      - name: Build Frontend
         run: |
           cd frontend
           npm run build
-      - name: pip install
+      - name: Set up Python Environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11.4"
+      - name: Install Python dependencies
         run: |
           cd backend
           pip install -r requirements/dev.txt
-      - name: python test
+      - name: Python Test
         run: |
           cd backend
           pytest
