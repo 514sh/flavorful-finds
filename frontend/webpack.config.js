@@ -4,8 +4,8 @@ const webpack = require("webpack");
 const config = (env, argv) => {
   const backend_url =
     argv.mode === "production"
-      ? "http://3.81.22.175/api"
-      : "http://localhost:5000/api";
+      ? "http://0.0.0.0:80/api"
+      : "http://0.0.0.0:80/api";
 
   return {
     entry: "./src/index.js",

@@ -1,0 +1,25 @@
+POST http://localhost:5000/api/register
+Content-Type: application/json
+
+{
+  "username": "mark",
+  "password": "password"
+}
+
+###
+POST http://localhost:5000/api/users/favorites
+Content-Type: application/json
+Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJ1c2VybmFtZSI6Im1hcmsiLCJleHBpcmF0aW9uIjoiMjAyMy0wOS0wMyAwMjoxMToxMC4zNjM3NTgifQ.Md70zyj6A08Y0jzlbHXX7-qq_uOe3KBnpZi40cZeizk
+
+{
+  "recipe_id": "4"
+}
+
+###
+POST http://localhost:5000/api/login
+Content-Type: application/json
+
+{
+  "username": "mark",
+  "password": "password"
+}
