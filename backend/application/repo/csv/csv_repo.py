@@ -5,8 +5,6 @@ import os
 file_path = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), "recipe_data_set.csv")
 
-print(file_path)
-
 
 def file_to_list_of_dict(filename=file_path):
     recipe_list = []

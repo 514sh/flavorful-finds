@@ -1,0 +1,10 @@
+POST http://localhost:5000/api/user_recipe_mapping
+Content-Type: application/json
+Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwaXJhdGlvbiI6IjIwMjMtMDktMDMgMTg6MDA6MjUuNDkwODk4In0.8iwsR1TsElKwvbbVQMToYRQHtj7tdIMJuLLOfVjuYww
+
+{
+  "recipe_id": "6"
+}
+
+###
+GET http://localhost:5000/api/user_recipe_mapping/1

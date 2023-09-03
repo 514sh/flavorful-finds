@@ -1,5 +1,5 @@
 from tests.recipes_data import recipes_data
-from recipefinder.domain.searchsorter import SearchSorter
+from application.repo.csv.recipe.searchsorter import SearchSorter
 import pytest
 
 

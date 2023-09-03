@@ -1,9 +1,0 @@
-GET http://localhost:5000/hello
-
-###
-POST http://localhost:5000/hello
-Content-Type: application/json
-
-{
-  "message": "xczvfg"
-}
