@@ -25,6 +25,22 @@ class Users:
             if 'conn' in locals() and conn:
                 conn.close()
 
+    def get(self, data):
+        try:
+            with psycopg2.connect(**self.db_params) as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        'SELECT * FROM "users" WHERE username = %s', (data["username"],))
+                    row = cur.fetchone()
+                    return row
+        except Exception as e:
+            return e
+        finally:
+            if 'cur' in locals() and cur:
+                cur.close()
+            if 'conn' in locals() and conn:
+                conn.close()
+
     def login(self, data):
         try:
             with psycopg2.connect(**self.db_params) as conn:

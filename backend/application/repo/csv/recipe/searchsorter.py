@@ -39,7 +39,6 @@ class SearchSorter:
         for keyword in keywords:
             for key in self.ingredients_set:
                 if keyword in key:
-                    print(key, keyword, keyword in key)
                     parts = key.split("@@")
                     id = parts[1]
                     if id not in ids:
