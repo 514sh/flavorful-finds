@@ -4,6 +4,8 @@ import HeaderMain from "./components/Header/HeaderMain";
 import BodyMain from "./components/Body/BodyMain";
 import Hero from "./components/Body/Hero";
 import recipeService from "./services/recipes";
+import Login from "./components/Body/Login";
+
 import {
   handleCloseSearchModal,
   handleInputChangeSearch,
@@ -64,6 +66,34 @@ const App = () => {
       );
     }
   };
+
+  const [loginUsername, setLoginUsername] = useState("")
+  const [loginPassword, setLoginPassword] = useState("")
+  const [showLoginPassword, setShowLoginPassword] = useState(false)
+
+  const handleChangeLoginUsername = (e) => {
+    setLoginUsername(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleChangeLoginPassword = (e) => {
+    setLoginPassword(e.target.value)
+    console.log(e.target.value)
+  }
+
+  const handleLoginShowPassword = () => {
+    setShowLoginPassword(!showLoginPassword)
+  }
+
+  const handleSubmitLogin = (e) => {
+    e.preventDefault()
+    console.log("login", loginUsername, loginPassword)
+  }
+
+  const handleOpenRegister = (e) => {
+    e.preventDefault()
+    console.log("register")
+  }
 
   return (
     <>
@@ -138,8 +168,19 @@ const App = () => {
                   isLoading={isLoading}
                 />
               }
-            />
+            />  
             <Route path="/about" element={<p>about</p>} />
+            <Route path="/login" element={<Login
+                handleChangeLoginPassword={handleChangeLoginPassword}
+                handleChangeLoginUsername={handleChangeLoginUsername}
+                handleLoginShowPassword={handleLoginShowPassword}
+                handleSubmitLogin={handleSubmitLogin}
+                loginPassword={loginPassword}
+                loginUsername={loginUsername}
+                handleOpenRegister={handleOpenRegister}
+                showLoginPassword={showLoginPassword}
+              />
+            } />
           </Routes>
         </Layout>
       </Router>

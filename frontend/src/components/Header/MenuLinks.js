@@ -29,7 +29,7 @@ const MenuLinks = ({...props}) => {
         </MenuItem>
         <MenuItem to="/home">Home</MenuItem>
         <MenuItem to="/about">About</MenuItem>
-        <MenuItem to="/" isLast>
+        <MenuItem to="/login" isLast>
           <Button
             size="sm"
             rounded="md"

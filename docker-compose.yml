@@ -10,7 +10,7 @@ services:
   backend:
     build:
       dockerfile: Dockerfile.backend
-    command: gunicorn --bind 0.0.0.0:5000 recipefinder.app:app
+    command: gunicorn --bind 0.0.0.0:5000 app:app
     environment:
       POSTGRES_HOST: db
       POSTGRES_USER: postgres
@@ -29,16 +29,16 @@ services:
     volumes:
       - database:/var/lib/postgresql/data
 
-  test_db:
-    image: postgres:13.2-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_PASSWORD: postgres
-    container_name: db_postgres
-    ports:
-      - "127.0.0.1:5432:5432"
-    volumes:
-      - test_database:/var/lib/postgresql/data
+  # test_db:
+  #   image: postgres:13.2-alpine
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_PASSWORD: postgres
+  #   container_name: db_postgres
+  #   ports:
+  #     - "127.0.0.1:5432:5431"
+  #   volumes:
+  #     - test_database:/var/lib/postgresql/data
 
   adminer:
     image: adminer
@@ -57,4 +57,4 @@ services:
 
 volumes:
   database:
-  test_database:
+  # test_database:

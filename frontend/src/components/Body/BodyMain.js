@@ -1,5 +1,4 @@
 import React from "react";
-import { Flex } from "@chakra-ui/react";
 import BodyContainer from "./BodyContainer";
 import RecipeCardList from "./RecipeCardList";
 import RecipeModal from "./RecipeModal";

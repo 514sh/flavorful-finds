@@ -12,10 +12,10 @@ db_params = {
 secret = os.getenv("SECRET_KEY")
 
 
-test_db_params = {
-    'dbname': os.getenv("TEST_DBNAME"),
-    'user': os.getenv("TEST_DBUSER"),
-    'password': os.getenv("TEST_DBPASSWORD"),
-    'host': os.getenv("TEST_DBHOST"),
-    'port': os.getenv("TEST_DBPORT")
-}
+# test_db_params = {
+#     'dbname': os.getenv("TEST_DBNAME"),
+#     'user': os.getenv("TEST_DBUSER"),
+#     'password': os.getenv("TEST_DBPASSWORD"),
+#     'host': os.getenv("TEST_DBHOST"),
+#     'port': os.getenv("TEST_DBPORT")
+# }
