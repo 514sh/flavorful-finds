@@ -11,8 +11,11 @@ import {
   Image,
 } from "@chakra-ui/react";
 import ModalTabs from "./ModalTabs";
+import { useLocation } from 'react-router-dom';
 
-const RecipeModal = ({ recipe, handleCloseRecipeModal, isOpenRecipeModal }) => {
+const RecipeModal = ({ recipe, handleCloseRecipeModal, isOpenRecipeModal, handleAddToFavoritesModal }) => {
+  const location = useLocation();
+  console.log("location.pathname", location.pathname)
   return (
     <Modal
       onClose={handleCloseRecipeModal}
@@ -32,6 +35,7 @@ const RecipeModal = ({ recipe, handleCloseRecipeModal, isOpenRecipeModal }) => {
           <ModalTabs recipe={recipe} />
         </ModalBody>
         <ModalFooter>
+          {location.pathname !== "/favorites" && <Button value={recipe.id} onClick={handleAddToFavoritesModal}>Add to Favorites</Button>}
           <Button onClick={handleCloseRecipeModal}>Close</Button>
         </ModalFooter>
       </ModalContent>

@@ -40,6 +40,6 @@ def login():
         else:
             token = jwt.encode(
                 payload, secret, algorithm="HS256")
-            return jsonify({"token": token}, 200)
+            return jsonify({'message': 'Login successful', "user_id": result[0], "token": token})
     else:
         return ErrorHandler.handle_not_found(error=data)

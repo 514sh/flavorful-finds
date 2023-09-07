@@ -1,7 +1,10 @@
 GET http://localhost:5000/api/recipes?offset=0
 
 ###
-GET http://localhost:5000/api/recipes/ingredients?offset=0&keywords=soysauce&keywords=sesameoil&keywords=mincedgarlic&keywords=ginger&keywords=cookingoil
+GET http://127.0.0.1:80/api/recipes/ingredients?offset=0&keywords=soysauce&keywords=sesameoil&keywords=mincedgarlic&keywords=ginger&keywords=cookingoil
 
 ###
 GET http://localhost:5000/api/recipes/title?keywords=lemon&keywords=beef&keywords=potato
+
+###
+POST http://localhost:5000/api/recipes/set_cookie

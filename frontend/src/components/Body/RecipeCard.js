@@ -8,8 +8,7 @@ import {
   Text,
   Button,
   ButtonGroup,
-  Divider,
-  Box,
+  Divider
 } from "@chakra-ui/react";
 import React from "react";
 const RecipeCard = ({ recipe, index, handleOpenRecipeModal }) => {

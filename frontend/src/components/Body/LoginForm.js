@@ -7,16 +7,8 @@ import {
   Button,
   FormControl
 } from '@chakra-ui/react'
-/*
-handleSubmitLogin
-handleChangeLoginUsername
-loginUsername
-showLoginPassword
-handleChangeLoginPassword
-loginPassword
-handleLoginShowPassword
-handleOpenRegister
-*/
+import { Link } from "react-router-dom";
+
 const LoginForm = ({...props}) => {
   console.log(props)
   return (    
@@ -37,8 +29,9 @@ const LoginForm = ({...props}) => {
             </InputRightElement>
           </InputGroup>
         </FormControl>
-
-        <Button type="submit">Login</Button>
+        <Link to="/home">
+          <Button type="submit">Login</Button>
+        </Link>
         <Button type="submit" onClick={props.handleOpenRegister}>Register</Button>
       </form>
     </Stack>

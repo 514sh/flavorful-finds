@@ -2,7 +2,6 @@
 from application.repo.postgres.user_recipe_mapping import UserRecipeMapping
 from flask import Blueprint, jsonify, request
 from application.utils.config import *
-from werkzeug.security import check_password_hash, generate_password_hash
 from application.utils.error_handler import ErrorHandler
 from application.repo.csv.csv_repo import file_to_list_of_dict
 import jwt
@@ -12,7 +11,7 @@ error_handler = ErrorHandler(blueprint)
 recipe_list = file_to_list_of_dict()
 
 
-@blueprint.route("/", methods=['POST'])
+@blueprint.route("/create", methods=['POST'])
 def create():
     mapping = UserRecipeMapping(db_params=db_params)
     data = request.get_json()

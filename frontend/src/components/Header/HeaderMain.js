@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
-import { Flex, Box, Spacer } from "@chakra-ui/react";
+
 
 import SearchBar from "./SearchBar";
 import SearchModal from "./SearchModal";

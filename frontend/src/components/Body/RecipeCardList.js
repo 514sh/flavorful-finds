@@ -2,14 +2,8 @@ import RecipeCard from "./RecipeCard";
 import React from "react";
 import { generateUniqueKey } from "../../utils/helper";
 import {
-  SimpleGrid,
   Stack,
-  Flex,
-  Box,
-  Tag,
-  TagLabel,
-  TagCloseButton,
-  Heading,
+  Heading
 } from "@chakra-ui/react";
 
 const RecipeCardList = (props) => {

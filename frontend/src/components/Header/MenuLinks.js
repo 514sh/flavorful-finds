@@ -1,10 +1,8 @@
 import React from 'react'
 import { Box, Stack, Button } from '@chakra-ui/react'
-import { HamburgerIcon} from '@chakra-ui/icons';
 
 import MenuItem from './MenuItem';
-import SearchModal from './SearchModal';
-import SearchBar from './SearchBar';
+
 
 const MenuLinks = ({...props}) => {
   return(
@@ -29,6 +27,7 @@ const MenuLinks = ({...props}) => {
         </MenuItem>
         <MenuItem to="/home">Home</MenuItem>
         <MenuItem to="/about">About</MenuItem>
+        <MenuItem to="/favorites">favorites</MenuItem>
         <MenuItem to="/login" isLast>
           <Button
             size="sm"

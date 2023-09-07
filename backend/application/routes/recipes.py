@@ -17,7 +17,7 @@ def search_by_ingredients():
     search_sorter = SearchSorter(recipe_list=recipe_list)
     result = search_sorter.search_by_ingredients(
         keywords)[offset:offset + batch]
-    return jsonify(result)
+    return jsonify(result), 200
 
 
 @blueprint.route("/title")
@@ -29,4 +29,5 @@ def search_by_title():
     search_sorter = SearchSorter(recipe_list=recipe_list)
     result = search_sorter.search_by_title(
         keywords)[offset:offset + batch]
-    return jsonify(result)
+    return jsonify(result), 200
+
