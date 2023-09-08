@@ -9,6 +9,11 @@ const login = async (user) => {
   return response.data
 }
 
-const services = {login}
+const register = async (user) => {
+  const response = await axios.post(`${baseUrl}/register`, user)
+  return response.data
+}
+
+const services = {login, register}
 
 export default services

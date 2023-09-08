@@ -7,10 +7,10 @@ import {
   Button,
   FormControl
 } from '@chakra-ui/react'
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const LoginForm = ({...props}) => {
-  console.log(props)
+  const location = useLocation();
   return (    
     <Stack spacing={4}>
       <form onSubmit={props.handleSubmitLogin}>
@@ -29,9 +29,7 @@ const LoginForm = ({...props}) => {
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        <Link to="/home">
-          <Button type="submit">Login</Button>
-        </Link>
+        <Button type="submit">Login</Button>
         <Button type="submit" onClick={props.handleOpenRegister}>Register</Button>
       </form>
     </Stack>

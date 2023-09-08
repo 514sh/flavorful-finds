@@ -4,7 +4,7 @@ import HeaderMain from "./components/Header/HeaderMain";
 import BodyMain from "./components/Body/BodyMain";
 import Hero from "./components/Body/Hero";
 import recipeService from "./services/recipes";
-import Login from "./components/Body/Login";
+import LoginMain from "./components/Body/LoginMain";
 
 import userRecipeMappingService from './services/user_recipe_mapping'
 import userService from './services/users'
@@ -47,6 +47,11 @@ const App = () => {
   const [showLoginPassword, setShowLoginPassword] = useState(false)
   const [favoriteRecipes, setFavoriteRecipes] = useState([])
   const [canRunScroll, setCanRunScroll] = useState(true)
+  const [registerUsername, setRegisterUsername] = useState("")
+  const [registerPassword, setRegisterPassword] = useState("")
+  const [registerShowPassword, setRegisterShowPassword] = useState(false)
+  const [isOpenRegisterModal, setIsOpenRegisterModal] = useState(false)
+  
 
   const handleScroll = () => {
     if(!canRunScroll){
@@ -93,10 +98,18 @@ const App = () => {
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault()
+    console.log("im clicked")
     const user = {"username": loginUsername, "password": loginPassword}
     const response = await userService.login(user)
     setIsLoggedIn(true)
   }
+
+  const handleSubmitRegister = async (e) => {
+    e.preventDefault()
+    console.log("im clicked")
+    const user = {"username": registerUsername, "password": registerPassword}
+    const response = await userService.register(user)
+  } 
 
   const handleAddToFavoritesModal = async (e) => {
     e.preventDefault();
@@ -230,15 +243,27 @@ const App = () => {
                 />
               }
             />  
-            <Route path="/login" element={<Login
+            <Route path="/login" element={<LoginMain
                 handleChangeLoginPassword={handleChangeLoginPassword}
                 handleChangeLoginUsername={handleChangeLoginUsername}
                 handleLoginShowPassword={handleLoginShowPassword}
                 handleSubmitLogin={handleSubmitLogin}
                 loginPassword={loginPassword}
                 loginUsername={loginUsername}
-                handleOpenRegister={handleOpenRegister}
+                handleOpenRegister={() => setIsOpenRegisterModal(true)}
                 showLoginPassword={showLoginPassword}
+
+                handleChangeRegisterPassword={(e) => setRegisterPassword(e.target.value)}
+                handleChangeRegisterUsername={(e) => setRegisterUsername(e.target.value)}
+                handleRegisterShowPassword={() => setRegisterShowPassword(!registerShowPassword)}
+                registerShowPassword={registerShowPassword}
+                handleSubmitRegister={handleSubmitRegister}
+                registerUsername={registerUsername}
+                registerPassword={registerPassword}
+                
+
+                handleCloseRegister={() => setIsOpenRegisterModal(false)}
+                isOpenRegisterModal={isOpenRegisterModal}
               />
             } />
           </Routes>
