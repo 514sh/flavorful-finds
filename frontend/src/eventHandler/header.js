@@ -1,20 +1,6 @@
-export const handleOpenSearchModal = (setIsOpenSearchModal) => {
-  setIsOpenSearchModal(true);
-};
+import recipeService from '../services/recipes'
 
-export const handleCloseSearchModal = (setIsOpenSearchModal) => {
-  setIsOpenSearchModal(false);
-};
-
-export const handleInputChangeSearch = (e, setSearchInput) => {
-  setSearchInput(e.target.value);
-};
-
-export const handleRadioChange = (value, setRadioValue) => {
-  setRadioValue(value);
-};
-
-export const handleInputKeyPressSearch = (
+const handleInputKeyPressSearch = (
   e,
   searchInput,
   keywords,
@@ -28,15 +14,9 @@ export const handleInputKeyPressSearch = (
   }
 };
 
-export const handleTagClose = (index, setKeywords, keywords) => {
-  const newValues = keywords.filter((_, i) => i !== index);
-  setKeywords(newValues);
-};
-
-export const handleSendSearch = async (
+const handleSendSearch = async (
   e,
   setSearchResult,
-  recipeService,
   keywords,
   setSearchInput,
   radioValue,
@@ -52,5 +32,6 @@ export const handleSendSearch = async (
   setIsOpenSearchModal(false);
 };
 
-export const toggleMenu = (setIsOpenMenu, isOpenMenu) =>
-  setIsOpenMenu(!isOpenMenu);
+const eventHandlers = { handleInputKeyPressSearch, handleSendSearch }
+
+export default eventHandlers

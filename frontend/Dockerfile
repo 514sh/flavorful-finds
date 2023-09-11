@@ -3,9 +3,9 @@
 FROM node:18.17.0
 
 WORKDIR /usr/src/app
-COPY frontend/package* ./
+COPY package* ./
 RUN npm install
-COPY frontend .
+COPY . .
 RUN npm run build
 
 EXPOSE 3000

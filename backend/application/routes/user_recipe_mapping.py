@@ -30,11 +30,11 @@ def create():
             else:
                 return error_handler.handle_unauthorized(error=data)
         except jwt.ExpiredSignatureError:
-            return jsonify({"error": "Token has expired"}), 401
+            return error_handler.handle_expired_token()
         except jwt.DecodeError:
-            return jsonify({"error": "Invalid token"}), 401
+            return error_handler.handle_invalid_token()
     else:
-        return jsonify({"error": "Missing or invalid token in the Authorization header"}), 401
+        return error_handler.handle_missing_token()
 
 
 @blueprint.route("/<int:user_id>")
@@ -49,4 +49,4 @@ def get(user_id):
     if result:
         return jsonify(response), 200
     else:
-        return error_handler.handle_not_found(error=data)
+        return error_handler.handle_recipes_not_found(error=data)

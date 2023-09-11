@@ -1,10 +1,10 @@
-POST http://localhost:80/api/user_recipe_mapping/create
+POST http://localhost:5000/api/user_recipe_mapping/create
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwaXJhdGlvbiI6IjIwMjMtMDktMDYgMTc6MjM6MTQuMjM4NjkwIn0.wVpCjLBynN1nUCk5n9E8HlE79sTtlMSbIXcdN3rhcZQ
+Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwaXJhdGlvbiI6IjIwMjMtMDktMTEgMDY6NDE6MjguNTU4ODU0In0.GEU1F_WV8LbwldxuvBzmvaF0I31AZ9rk4j5qzDZKNm8
 
 {
   "recipe_id": "9"
 }
 
 ###
-GET http://localhost:5000/api/user_recipe_mapping/1
+GET http://localhost:5000/api/user_recipe_mapping/41

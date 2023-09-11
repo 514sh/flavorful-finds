@@ -2,18 +2,19 @@ version: "3.8"
 
 services:
   frontend:
-    image: 514sh/recipe-finder-frontend:1.0.0
+    build:
+      context: ../frontend
+      # dockerfile: Dockerfile.frontend
     command: bash -c "npm run start:prod"
     container_name: recipe-finder-frontend
 
   backend:
-    image: 514sh/recipe-finder-backend:1.0.0
-    command: gunicorn --bind 0.0.0.0:5000 recipefinder.app:app
-    environment:
-      POSTGRES_HOST: db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DATABASE: postgres
+    build:
+      context: ../backend
+      # dockerfile: Dockerfile.backend
+    command: gunicorn --bind backend:5000 app:app
+    env_file:
+      - ../backend/.env
     container_name: recipe-finder-backend
     depends_on:
       - db

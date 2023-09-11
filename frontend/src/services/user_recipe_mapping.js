@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseUrl = `${BACKEND_URL}/user_recipe_mapping`;
 
-function getCookie(cookieName) {
+const getCookie = (cookieName) => {
   const cookies = document.cookie.split('; ');
   for (const cookie of cookies) {
     const [name, value] = cookie.split('=');

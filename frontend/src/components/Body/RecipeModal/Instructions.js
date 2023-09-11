@@ -1,6 +1,6 @@
 import React from "react";
 import { OrderedList, ListItem } from "@chakra-ui/react";
-import { generateUniqueKey } from "../../utils/helper";
+import { generateUniqueKey } from "../../../utils/helper";
 
 const Instructions = ({ recipe }) => {
   return (

@@ -5,7 +5,7 @@ const config = (env, argv) => {
   const backend_url =
     argv.mode === "production"
       ? "http://0.0.0.0:80/api"
-      : "http://0.0.0.0:80/api";
+      : "http://0.0.0.0:5000/api";
 
   return {
     entry: "./src/index.js",

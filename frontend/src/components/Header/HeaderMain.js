@@ -2,11 +2,11 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 
 
-import SearchBar from "./SearchBar";
-import SearchModal from "./SearchModal";
-import MenuLinks from "./MenuLinks";
-import MenuToggle from "./MenuToggle";
-import Logo from "./Logo";
+import SearchBar from "./SearchBar/SearchBar";
+import SearchModal from "./SearchModal/SearchModal";
+import MenuLinks from "./MenuLinks/MenuLinks";
+import MenuToggle from "./MenuToggle/MenuToggle";
+import Logo from "./Logo/Logo";
 import HeaderContainer from "./HeaderContainer";
 
 const HeaderMain = ({ ...props }) => {

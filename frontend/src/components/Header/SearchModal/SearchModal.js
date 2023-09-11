@@ -12,7 +12,7 @@ import {
 
 import SearchModalBody from "./SearchModalBody";
 
-const SearchModal = (props) => {
+const SearchModal = ({...props}) => {
   return (
     <Modal
       isOpen={props.isOpenModal}

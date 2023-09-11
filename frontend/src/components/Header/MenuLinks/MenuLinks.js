@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Stack, Button } from '@chakra-ui/react'
 
 import MenuItem from './MenuItem';
-
+import userRecipeMappingService from "../../../services/user_recipe_mapping"
 
 const MenuLinks = ({...props}) => {
   return(
@@ -27,7 +27,7 @@ const MenuLinks = ({...props}) => {
         </MenuItem>
         <MenuItem to="/home">Home</MenuItem>
         <MenuItem to="/about">About</MenuItem>
-        <MenuItem to="/favorites">favorites</MenuItem>
+        { userRecipeMappingService.getCookie("userId") && <MenuItem to="/favorites">Favorites</MenuItem>}
         <MenuItem to="/login" isLast>
           <Button
             size="sm"

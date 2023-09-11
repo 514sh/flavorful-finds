@@ -36,10 +36,10 @@ def login():
         payload = {"user_id": result[0], "username": result[1], "expiration": str(
             datetime.now() + timedelta(minutes=30))}
         if not correctPass:
-            return ErrorHandler.handle_incorrect_password(error=data)
+            return error_handler.handle_incorrect_password(error=data)
         else:
             token = jwt.encode(
                 payload, secret, algorithm="HS256")
-            return jsonify({'message': 'Login successful', "user_id": result[0], "token": token})
+            return jsonify({'success': 'Login successful', "user_id": result[0], "token": token})
     else:
-        return ErrorHandler.handle_not_found(error=data)
+        return error_handler.handle_not_found(error=data)

@@ -1,34 +1,24 @@
+//dependencies
 import React, { useState, useEffect, useRef } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useToast } from '@chakra-ui/react'
+
+//components
 import Layout from "./components/Layout";
 import HeaderMain from "./components/Header/HeaderMain";
-import BodyMain from "./components/Body/BodyMain";
-import Hero from "./components/Body/Hero";
-import recipeService from "./services/recipes";
-import LoginMain from "./components/Body/LoginMain";
+import HomeMain from "./components/Body/Home/HomeMain";
+import Hero from "./components/Body/Hero/Hero";
+import LoginMain from "./components/Body/Login/LoginMain";
+import FavoritesMain from "./components/Body/Favorites/FavoritesMain";
 
-import userRecipeMappingService from './services/user_recipe_mapping'
-import userService from './services/users'
-import BodyFavorites from "./components/Body/BodyFavorites";
-
-import {
-  handleCloseSearchModal,
-  handleInputChangeSearch,
-  handleInputKeyPressSearch,
-  handleOpenSearchModal,
-  handleSendSearch,
-  handleTagClose,
-  toggleMenu,
-  handleRadioChange,
-} from "./eventHandler/header";
-import {
-  handleOpenRecipeModal,
-  handleCloseRecipeModal,
-  loadMoreData,
-} from "./eventHandler/body";
-
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//eventHandlers
+import headerHandler from "./eventHandler/header";
+import homeHandler from "./eventHandler/home";
+import loginHandler from "./eventHandler/login";
+import recipeModalHandler from "./eventHandler/recipeModal"
 
 const App = () => {
+  const toast =useToast()
   const [isOpenSearchModal, setIsOpenSearchModal] = useState(false);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isOpenRecipeModal, setIsOpenRecipeModal] = useState(false);
@@ -44,120 +34,65 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginUsername, setLoginUsername] = useState("")
   const [loginPassword, setLoginPassword] = useState("")
-  const [showLoginPassword, setShowLoginPassword] = useState(false)
+  const [loginShowPassword, setLoginShowPassword] = useState(false)
   const [favoriteRecipes, setFavoriteRecipes] = useState([])
-  const [canRunScroll, setCanRunScroll] = useState(true)
   const [registerUsername, setRegisterUsername] = useState("")
   const [registerPassword, setRegisterPassword] = useState("")
   const [registerShowPassword, setRegisterShowPassword] = useState(false)
   const [isOpenRegisterModal, setIsOpenRegisterModal] = useState(false)
-  
-
-  const handleScroll = () => {
-    if(!canRunScroll){
-      return
-    }
-
-    setCanRunScroll(false)
-    setTimeout(() => {
-      setCanRunScroll(true)
-    }, 3000)
-    if (
-      window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight - 100 &&
-      searchResult.length >= 20 &&
-      keywords.length !== 0
-    ) {
-        loadMoreData(
-          hasMore,
-          isLoading,
-          setIsLoading,
-          keywords,
-          offset,
-          radioValue,
-          recipeService,
-          setHasMore,
-          setSearchResult,
-          searchResult,
-          setOffset
-        );
-      }
-  };
-
-  const handleChangeLoginUsername = (e) => {
-    setLoginUsername(e.target.value)
-  }
-
-  const handleChangeLoginPassword = (e) => {
-    setLoginPassword(e.target.value)
-  }
-
-  const handleLoginShowPassword = () => {
-    setShowLoginPassword(!showLoginPassword)
-  }
-
-  const handleSubmitLogin = async (e) => {
-    e.preventDefault()
-    console.log("im clicked")
-    const user = {"username": loginUsername, "password": loginPassword}
-    const response = await userService.login(user)
-    setIsLoggedIn(true)
-  }
-
-  const handleSubmitRegister = async (e) => {
-    e.preventDefault()
-    console.log("im clicked")
-    const user = {"username": registerUsername, "password": registerPassword}
-    const response = await userService.register(user)
-  } 
-
-  const handleAddToFavoritesModal = async (e) => {
-    e.preventDefault();
-    const req_data = {"recipe_id": e.target.value}
-    const response = await userRecipeMappingService.addToFavorites(req_data)
-    getFavorites()
-  }
-
-  const handleOpenRegister = (e) => {
-    e.preventDefault()
-  }
-
-  const getFavorites = async () => {
-    const userId = userRecipeMappingService.getCookie('userId')
-    if(userId){
-      const response = await userRecipeMappingService.getFavorites();
-      setFavoriteRecipes(response)
-    }
-  }
 
   useEffect(() => {
-    getFavorites()
+    console.log("setfavorites")
+    homeHandler.setFavorites(setFavoriteRecipes)
   },[isLoggedIn])
 
   useEffect(() => {
-    console.log("Canrun scroll", canRunScroll)
-    window.addEventListener("scroll", handleScroll);
+    console.log("my keywords: ", keywords)
+  }, [keywords])
 
+  useEffect(() => {
+    const handleScroll = () => homeHandler
+      .handleScroll(     
+        hasMore,
+        isLoading,
+        setIsLoading,
+        keywords,
+        offset,
+        radioValue,
+        setHasMore,
+        setSearchResult,
+        searchResult,
+        setOffset
+      )
+    console.log("running")
+    window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [searchResult]);
+
 
   return (
     <>
       <Router>
-        <Layout>
+        <Layout>          
           <HeaderMain
-            handleRadioChange={(value) =>
-              handleRadioChange(value, setRadioValue)
-            }
-            radioValue={radioValue}
-            handleOpenModal={() => handleOpenSearchModal(setIsOpenSearchModal)}
-            isOpenModal={isOpenSearchModal}
-            inputValueSearch={searchInput}
-            handleInputChangeSearch={(e) =>
-              handleInputChangeSearch(e, setSearchInput)
+            handleRadioChange={(value) => setRadioValue(value)}
+            handleOpenModal={() => setIsOpenSearchModal(true)}
+            handleCloseModal={() => setIsOpenSearchModal(false)}
+            toggleMenu={() => setIsOpenMenu(!isOpenMenu)}
+            handleInputChangeSearch={(e) => setSearchInput(e.target.value)}
+            handleTagClose={(index) => setKeywords(keywords.filter((_, i) => i !== index)) }
+            handleSendSearch={(e) =>
+              headerHandler.handleSendSearch(
+                e,
+                setSearchResult,
+                keywords,
+                setSearchInput,
+                radioValue,
+                setIsOpenSearchModal
+              )
             }
             handleInputKeyPressSearch={(e) =>
-              handleInputKeyPressSearch(
+              headerHandler.handleInputKeyPressSearch(
                 e,
                 searchInput,
                 keywords,
@@ -165,25 +100,11 @@ const App = () => {
                 setKeywords
               )
             }
+
+            isOpenModal={isOpenSearchModal}
+            inputValueSearch={searchInput}
+            radioValue={radioValue}
             valuesSearch={keywords}
-            handleTagClose={(index) =>
-              handleTagClose(index, setKeywords, keywords)
-            }
-            handleCloseModal={() =>
-              handleCloseSearchModal(setIsOpenSearchModal)
-            }
-            handleSendSearch={(e) =>
-              handleSendSearch(
-                e,
-                setSearchResult,
-                recipeService,
-                keywords,
-                setSearchInput,
-                radioValue,
-                setIsOpenSearchModal
-              )
-            }
-            toggleMenu={() => toggleMenu(setIsOpenMenu, isOpenMenu)}
             isOpenMenu={isOpenMenu}
           />
           <Routes>
@@ -191,11 +112,11 @@ const App = () => {
             <Route
               path="/home"
               element={
-                <BodyMain
-                  searchResult={searchResult}
+                <HomeMain
+                  recipeList={searchResult}
                   keywords={keywords}
                   handleOpenRecipeModal={(index) =>
-                    handleOpenRecipeModal(
+                    recipeModalHandler.handleOpenRecipeModal(
                       index,
                       setStoredScrollPosition,
                       setRecipe,
@@ -204,7 +125,7 @@ const App = () => {
                     )
                   }
                   handleCloseRecipeModal={() =>
-                    handleCloseRecipeModal(
+                    recipeModalHandler.handleCloseRecipeModal(
                       setIsOpenRecipeModal,
                       storedScrollPosition
                     )
@@ -212,7 +133,7 @@ const App = () => {
                   isOpenRecipeModal={isOpenRecipeModal}
                   recipe={recipe}
                   isLoading={isLoading}
-                  handleAddToFavoritesModal={handleAddToFavoritesModal}
+                  handleAddToFavoritesModal={(e) => homeHandler.handleAddToFavoritesModal(e, setFavoriteRecipes, toast, setIsOpenRecipeModal)}
                 />
               }
             />  
@@ -220,48 +141,47 @@ const App = () => {
             <Route
               path="/favorites"
               element={
-                <BodyFavorites
+                <FavoritesMain
                   favoriteRecipes={favoriteRecipes}
+                  recipeList={favoriteRecipes}
                   handleOpenRecipeModal={(index) =>
-                    handleOpenRecipeModal(
+                    recipeModalHandler.handleOpenFavoriteRecipeModal(
                       index,
                       setStoredScrollPosition,
                       setRecipe,
                       setIsOpenRecipeModal,
-                      searchResult
+                      favoriteRecipes
                     )
                   }
                   handleCloseRecipeModal={() =>
-                    handleCloseRecipeModal(
+                    recipeModalHandler.handleCloseRecipeModal(
                       setIsOpenRecipeModal,
                       storedScrollPosition
                     )
                   }
                   isOpenRecipeModal={isOpenRecipeModal}
                   recipe={recipe}
-                  handleAddToFavoritesModal={handleAddToFavoritesModal}
                 />
               }
             />  
             <Route path="/login" element={<LoginMain
-                handleChangeLoginPassword={handleChangeLoginPassword}
-                handleChangeLoginUsername={handleChangeLoginUsername}
-                handleLoginShowPassword={handleLoginShowPassword}
-                handleSubmitLogin={handleSubmitLogin}
+                handleChangeLoginPassword={(e) => setLoginPassword(e.target.value)}
+                handleChangeLoginUsername={(e) => setLoginUsername(e.target.value)}
+                handleLoginShowPassword={() => setLoginShowPassword(!loginShowPassword)}
+                handleSubmitLogin={(e) => loginHandler.handleSubmitLogin(e, setLoginUsername, setLoginPassword, loginUsername, loginPassword, setIsLoggedIn, toast)}
                 loginPassword={loginPassword}
                 loginUsername={loginUsername}
-                handleOpenRegister={() => setIsOpenRegisterModal(true)}
-                showLoginPassword={showLoginPassword}
+                showLoginPassword={loginShowPassword}
 
                 handleChangeRegisterPassword={(e) => setRegisterPassword(e.target.value)}
                 handleChangeRegisterUsername={(e) => setRegisterUsername(e.target.value)}
                 handleRegisterShowPassword={() => setRegisterShowPassword(!registerShowPassword)}
-                registerShowPassword={registerShowPassword}
-                handleSubmitRegister={handleSubmitRegister}
+                handleSubmitRegister={(e) => loginHandler.handleSubmitRegister(e, setIsOpenRegisterModal, setRegisterUsername, setRegisterPassword, registerUsername, registerPassword, toast)}
                 registerUsername={registerUsername}
                 registerPassword={registerPassword}
+                registerShowPassword={registerShowPassword}
                 
-
+                handleOpenRegister={() => setIsOpenRegisterModal(true)}
                 handleCloseRegister={() => setIsOpenRegisterModal(false)}
                 isOpenRegisterModal={isOpenRegisterModal}
               />
