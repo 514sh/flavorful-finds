@@ -4,7 +4,9 @@ import { Box, Stack, Button } from '@chakra-ui/react'
 import MenuItem from './MenuItem';
 import userRecipeMappingService from "../../../services/user_recipe_mapping"
 
+
 const MenuLinks = ({...props}) => {
+  
   return(
     <>
     <Box
@@ -22,13 +24,15 @@ const MenuLinks = ({...props}) => {
           onClick={(e) => {
             e.preventDefault()
             props.handleOpenModal()}
-          }>
+          }
+          setLocation={props.setLocation}
+        >
           Search
         </MenuItem>
-        <MenuItem to="/home">Home</MenuItem>
-        <MenuItem to="/about">About</MenuItem>
-        { userRecipeMappingService.getCookie("userId") && <MenuItem to="/favorites">Favorites</MenuItem>}
-        <MenuItem to="/login" isLast>
+        <MenuItem to="/home"  setLocation={props.setLocation}>Home</MenuItem>
+        <MenuItem to="/about" setLocation={props.setLocation}>About</MenuItem>
+        { userRecipeMappingService.getCookie("userId") && <MenuItem to="/favorites" setLocation={props.setLocation}>Favorites</MenuItem>}
+        <MenuItem to="/login" onClick={props.handleLogout} setLocation={props.setLocation} isLast>
           <Button
             size="sm"
             rounded="md"
@@ -38,7 +42,7 @@ const MenuLinks = ({...props}) => {
               bg: ["primary.100", "primary.100", "primary.600", "primary.600"]
             }}
           >
-            Login
+            {userRecipeMappingService.getCookie("userId") ? "Logout":"Login"}
           </Button>
         </MenuItem>
       </Stack>

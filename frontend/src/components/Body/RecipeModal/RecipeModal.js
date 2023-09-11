@@ -15,7 +15,6 @@ import { useLocation } from 'react-router-dom';
 
 const RecipeModal = ({ recipe, handleCloseRecipeModal, isOpenRecipeModal, handleAddToFavoritesModal }) => {
   const location = useLocation();
-  console.log("location.pathname", location.pathname)
   return (
     <Modal
       onClose={handleCloseRecipeModal}

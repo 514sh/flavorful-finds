@@ -40,18 +40,22 @@ const App = () => {
   const [registerPassword, setRegisterPassword] = useState("")
   const [registerShowPassword, setRegisterShowPassword] = useState(false)
   const [isOpenRegisterModal, setIsOpenRegisterModal] = useState(false)
+  const [location, setLocation] = useState("")
 
   useEffect(() => {
     console.log("setfavorites")
     homeHandler.setFavorites(setFavoriteRecipes)
+    setLocation("/home")
   },[isLoggedIn])
 
   useEffect(() => {
-    console.log("my keywords: ", keywords)
-  }, [keywords])
+    console.log("my location: ", location)
+  }, [location])
+
 
   useEffect(() => {
-    const handleScroll = () => homeHandler
+    if (location === "/home"){
+      const handleScroll = () => homeHandler
       .handleScroll(     
         hasMore,
         isLoading,
@@ -64,10 +68,11 @@ const App = () => {
         searchResult,
         setOffset
       )
-    console.log("running")
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [searchResult]);
+      console.log("running scroll")
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    } 
+  }, [searchResult, location]);
 
 
   return (
@@ -75,6 +80,8 @@ const App = () => {
       <Router>
         <Layout>          
           <HeaderMain
+            handleLogout={() => loginHandler.handleLogout(setLoginUsername, setLoginPassword)}
+            setLocation={setLocation}
             handleRadioChange={(value) => setRadioValue(value)}
             handleOpenModal={() => setIsOpenSearchModal(true)}
             handleCloseModal={() => setIsOpenSearchModal(false)}
@@ -108,7 +115,7 @@ const App = () => {
             isOpenMenu={isOpenMenu}
           />
           <Routes>
-            <Route path="/" exact element={<Hero />} />
+            <Route path="/" exact element={<Hero handleOpenRegister={() => setIsOpenRegisterModal(true)} />} />
             <Route
               path="/home"
               element={

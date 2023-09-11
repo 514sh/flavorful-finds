@@ -19,6 +19,7 @@ const Hero = ({
   ctaText,
   ctaRegisterText,
   ctaRegisterLink,
+  handleOpenRegister,
   ...rest
 }) => (
   <Flex
@@ -68,7 +69,7 @@ const Hero = ({
           {ctaText}
         </Button>
       </Link>
-      <Link to={ctaRegisterLink} style={{ textDecoration: 'none' }} >
+      <Link to={ctaRegisterLink} style={{ textDecoration: 'none' }} onClick={handleOpenRegister} >
       <Text
         fontSize="xs"
         mt={2}
@@ -103,7 +104,7 @@ Hero.defaultProps = {
   image: "images/landingImage.png",
   ctaText: "Find your recipe now",
   ctaLink: "/home",
-  ctaRegisterLink: "/register",
+  ctaRegisterLink: "/login",
   ctaRegisterText: "Register now to save your favorite recipes and embark on a culinary journey."
 };
 

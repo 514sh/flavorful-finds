@@ -4,9 +4,11 @@ const handleSubmitLogin = async (e, setLoginUsername, setLoginPassword, loginUse
   e.preventDefault()
   console.log("im clicked")
   try{
+
     const user = {"username": loginUsername, "password": loginPassword}
     const response = await userService.login(user)
 
+    setIsLoggedIn(true)
     toast({
       position: "top",
       title: "Login Alert",
@@ -15,6 +17,7 @@ const handleSubmitLogin = async (e, setLoginUsername, setLoginPassword, loginUse
       duration: 5000,
       isClosable: true,
     })
+    return response
   }catch(exception){
     console.log(exception)
     toast({
@@ -28,7 +31,6 @@ const handleSubmitLogin = async (e, setLoginUsername, setLoginPassword, loginUse
   }
   setLoginUsername("")
   setLoginPassword("")
-  setIsLoggedIn(true)
 }
 
 const handleSubmitRegister = async (e, setIsOpenRegisterModal, setRegisterUsername, setRegisterPassword, registerUsername, registerPassword, toast) => {
@@ -39,6 +41,7 @@ const handleSubmitRegister = async (e, setIsOpenRegisterModal, setRegisterUserna
     const response = await userService.register(user)
     console.log("response ",response)
     toast({
+      position: "top",
       title: "Registration Alert",
       status: "success",
       description: response["success"],
@@ -48,6 +51,7 @@ const handleSubmitRegister = async (e, setIsOpenRegisterModal, setRegisterUserna
   }catch(exception){
     console.log(exception)
     toast({
+      position: "top",
       title: "Registration Alert", 
       status: "error", 
       description: exception.response.data.error,
@@ -60,6 +64,17 @@ const handleSubmitRegister = async (e, setIsOpenRegisterModal, setRegisterUserna
   setIsOpenRegisterModal(false)
 }
 
-const eventHandlers = { handleSubmitLogin, handleSubmitRegister}
+const deleteCookie =(cookieName) => {
+  document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+}
+
+const handleLogout = (setLoginUsername, setLoginPassword) => {
+  deleteCookie("userId")
+  deleteCookie("authToken")
+  setLoginUsername("")
+  setLoginPassword("")
+}
+
+const eventHandlers = { handleSubmitLogin, handleSubmitRegister, handleLogout}
 
 export default eventHandlers

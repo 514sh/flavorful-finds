@@ -7,13 +7,20 @@ import {
   Button,
   FormControl
 } from '@chakra-ui/react'
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = ({...props}) => {
-  const location = useLocation();
+  const navigate = useNavigate()
+  const handleSubmitLogin = async (e) => {
+    const response = await props.handleSubmitLogin(e)
+    if (response){
+      console.log(response)
+      navigate("/home")
+    }
+  }
   return (    
     <Stack spacing={4}>
-      <form onSubmit={props.handleSubmitLogin}>
+      <form onSubmit={handleSubmitLogin}>
         <FormControl isRequired>
           <InputGroup>
             <Input type='text' placeholder='username' onChange={props.handleChangeLoginUsername} value={props.loginUsername} />
@@ -29,7 +36,7 @@ const LoginForm = ({...props}) => {
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        <Button type="submit">Login</Button>
+        <Button type="submit" >Login</Button>
         <Button type="submit" onClick={props.handleOpenRegister}>Register</Button>
       </form>
     </Stack>
