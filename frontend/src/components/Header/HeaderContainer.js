@@ -4,11 +4,6 @@ import { Flex } from "@chakra-ui/react";
 const HeaderContainer = ({ children }) => {
   return (
     <Flex
-      position="fixed"
-      top="0"
-      left="0"
-      width="100%"
-      zIndex="1000"
       as="nav"
       align="center"
       justify="space-between"

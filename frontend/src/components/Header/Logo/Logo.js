@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Text} from '@chakra-ui/react'
+import {Box, Text, Image} from '@chakra-ui/react'
 import { Link } from 'react-router-dom';
 
 const Logo = () => {
@@ -7,7 +7,7 @@ const Logo = () => {
     <Box flex={1}>
       <Link to="/" style={{ textDecoration: 'none' }}>
         <Text fontSize="lg" fontWeight="bold">
-          Logo
+          Flavorful Finds
         </Text>
       </Link>
     </Box>

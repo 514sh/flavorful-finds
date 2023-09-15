@@ -9,6 +9,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Image,
+  Text
 } from "@chakra-ui/react";
 import ModalTabs from "./ModalTabs";
 import { useLocation } from 'react-router-dom';
@@ -25,17 +26,24 @@ const RecipeModal = ({ recipe, handleCloseRecipeModal, isOpenRecipeModal, handle
       <ModalContent>
         <ModalHeader>{recipe.title}</ModalHeader>
         <Image
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+          src={FOOD_IMAGES_URL + recipe.filename + ".jpg"}
+          fallbackSrc="images/logo.png"
           alt={recipe.title}
-          borderRadius="lg"
+          borderRadius="xl"
+          size="lg"
+          m={4}
         />
-        <ModalCloseButton />
+        <ModalCloseButton variant = 'secondary'/>
         <ModalBody>
           <ModalTabs recipe={recipe} />
         </ModalBody>
         <ModalFooter>
-          {location.pathname !== "/favorites" && <Button value={recipe.id} onClick={handleAddToFavoritesModal}>Add to Favorites</Button>}
-          <Button onClick={handleCloseRecipeModal}>Close</Button>
+          {location.pathname !== "/favorites" && 
+          <Button 
+            variant = 'main'
+            value={recipe.id} 
+            onClick={handleAddToFavoritesModal}>Add to Favorites</Button>}
+          <Button variant = 'secondary'  onClick={handleCloseRecipeModal}>Close</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

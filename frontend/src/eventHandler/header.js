@@ -1,13 +1,5 @@
 import recipeService from '../services/recipes'
-import userRecipeMappingService from '../services/user_recipe_mapping'
 
-const handleLogged = (e) => {
-  e.preventDefault()
-  const userId = userRecipeMappingService.getCookie("userId")
-  if(userId){
-    console.log("clicked adfasdf")
-  }
-}
 
 const handleInputKeyPressSearch = (
   e,
@@ -42,6 +34,6 @@ const handleSendSearch = async (
   setIsOpenSearchModal(false);
 };
 
-const eventHandlers = { handleInputKeyPressSearch, handleSendSearch, handleLogged }
+const eventHandlers = { handleInputKeyPressSearch, handleSendSearch}
 
 export default eventHandlers

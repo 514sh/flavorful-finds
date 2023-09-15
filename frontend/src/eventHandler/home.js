@@ -14,7 +14,6 @@ const setFavorites = async (setFavoriteRecipes) => {
 }
 
 const handleAddToFavoritesModal = async (e, setFavoriteRecipes, toast, setIsOpenRecipeModal) => {
-  e.preventDefault();
   try{
     const req_data = {"recipe_id": e.target.value}
     const response = await userRecipeMappingService.addToFavorites(req_data)
@@ -27,6 +26,8 @@ const handleAddToFavoritesModal = async (e, setFavoriteRecipes, toast, setIsOpen
       isClosable: true,
     })
     setFavorites(setFavoriteRecipes)
+    document.body.style.overflow = "";
+    window.scrollTo(0, storedScrollPosition);
   }catch(exception){
     console.log(exception)
   }
@@ -49,7 +50,6 @@ const loadMoreData = async (
   if (!hasMore || isLoading) return;
 
   setIsLoading(true);
-
   try {
     const obj = { keywords, offset };
     const response =
@@ -79,13 +79,16 @@ const handleScroll = (
   setHasMore,
   setSearchResult,
   searchResult,
-  setOffset) => {
+  setOffset,
+  canLoadMore,
+  setCanLoadMore,
+  ) => {
 
   if (
     window.innerHeight + document.documentElement.scrollTop >=
       document.documentElement.offsetHeight - 100 &&
     searchResult.length >= 20 &&
-    keywords.length !== 0
+    keywords.length !== 0 && canLoadMore
   ) {
       loadMoreData(
         hasMore,
@@ -99,6 +102,9 @@ const handleScroll = (
         searchResult,
         setOffset
       );
+      setCanLoadMore(false); // Prevent further immediate calls
+      setTimeout(() => {
+        setCanLoadMore(true)}, 5000);
     }
 };
 

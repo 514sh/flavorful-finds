@@ -17,6 +17,7 @@ import homeHandler from "./eventHandler/home";
 import loginHandler from "./eventHandler/login";
 import recipeModalHandler from "./eventHandler/recipeModal"
 
+
 const App = () => {
   const toast =useToast()
   const [isOpenSearchModal, setIsOpenSearchModal] = useState(false);
@@ -41,20 +42,15 @@ const App = () => {
   const [registerShowPassword, setRegisterShowPassword] = useState(false)
   const [isOpenRegisterModal, setIsOpenRegisterModal] = useState(false)
   const [location, setLocation] = useState("")
+  const [canLoadMore, setCanLoadMore] = useState(true)
 
   useEffect(() => {
-    console.log("setfavorites")
     homeHandler.setFavorites(setFavoriteRecipes)
     setLocation("/home")
   },[isLoggedIn])
 
   useEffect(() => {
-    console.log("my location: ", location)
-  }, [location])
-
-
-  useEffect(() => {
-    if (location === "/home"){
+    if (location === "/home" && !isOpenRecipeModal){
       const handleScroll = () => homeHandler
       .handleScroll(     
         hasMore,
@@ -66,13 +62,14 @@ const App = () => {
         setHasMore,
         setSearchResult,
         searchResult,
-        setOffset
+        setOffset,
+        canLoadMore,
+        setCanLoadMore
       )
-      console.log("running scroll")
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
     } 
-  }, [searchResult, location]);
+  }, [searchResult, location, canLoadMore]);
 
 
   return (

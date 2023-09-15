@@ -14,7 +14,6 @@ const LoginForm = ({...props}) => {
   const handleSubmitLogin = async (e) => {
     const response = await props.handleSubmitLogin(e)
     if (response){
-      console.log(response)
       navigate("/home")
     }
   }
@@ -23,21 +22,21 @@ const LoginForm = ({...props}) => {
       <form onSubmit={handleSubmitLogin}>
         <FormControl isRequired>
           <InputGroup>
-            <Input type='text' placeholder='username' onChange={props.handleChangeLoginUsername} value={props.loginUsername} />
+            <Input focusBorderColor='primary.700' type='text' placeholder='username' onChange={props.handleChangeLoginUsername} value={props.loginUsername} />
           </InputGroup>
         </FormControl>
         <FormControl isRequired>
           <InputGroup>
-            <Input placeholder='password' type={props.showLoginPassword ? 'text' : 'password'} onChange={props.handleChangeLoginPassword} value={props.loginPassword} />
+            <Input focusBorderColor='primary.700' placeholder='password' type={props.showLoginPassword ? 'text' : 'password'} onChange={props.handleChangeLoginPassword} value={props.loginPassword} />
             <InputRightElement>
-              <Button h='1.75rem' size='sm' onClick={props.handleLoginShowPassword} >
+              <Button variant='secondary' h='1.75rem' size='sm' onClick={props.handleLoginShowPassword} >
                 {props.showLoginPassword ? 'Hide' : 'Show'}
               </Button>
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        <Button type="submit" >Login</Button>
-        <Button type="submit" onClick={props.handleOpenRegister}>Register</Button>
+        <Button variant='main' type="submit" >Login</Button>
+        <Button variant='main' type="submit" onClick={props.handleOpenRegister}>Register</Button>
       </form>
     </Stack>
   ) 

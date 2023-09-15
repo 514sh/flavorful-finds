@@ -2,13 +2,13 @@ version: "3.8"
 
 services:
   frontend:
-    image: 514sh/recipe-finder-frontend:1.0.0
+    image: 514sh/recipe-finder-frontend:2.0.0
     command: bash -c "npm run start:prod"
     container_name: recipe-finder-frontend
-
+      
   backend:
-    image: 514sh/recipe-finder-backend:1.0.0
-    command: gunicorn --bind 0.0.0.0:5000 recipefinder.app:app
+    image: 514sh/recipe-finder-backend:2.0.0
+    command: gunicorn --bind backend:5000 app:app
     container_name: recipe-finder-backend
     depends_on:
       - db

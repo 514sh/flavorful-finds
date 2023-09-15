@@ -14,21 +14,21 @@ const RegisterForm = ({...props}) => {
     <Stack spacing={4}>
       <form onSubmit={props.handleSubmitRegister}>
         <FormControl isRequired>
-          <InputGroup>
-            <Input type='text' placeholder='username' onChange={props.handleChangeRegisterUsername} value={props.registerUsername} />
+          <InputGroup spacing={2}>
+            <Input focusBorderColor='primary.700' type='text' placeholder='username' onChange={props.handleChangeRegisterUsername} value={props.registerUsername} />
           </InputGroup>
         </FormControl>
         <FormControl isRequired>
           <InputGroup>
-            <Input placeholder='password' type={props.registerShowPassword ? 'text' : 'password'} onChange={props.handleChangeRegisterPassword} value={props.registerPassword} />
+            <Input focusBorderColor='primary.700' placeholder='password' type={props.registerShowPassword ? 'text' : 'password'} onChange={props.handleChangeRegisterPassword} value={props.registerPassword} />
             <InputRightElement>
-              <Button h='1.75rem' size='sm' onClick={props.handleRegisterShowPassword} >
+              <Button variant='secondary' h='1.75rem' size='sm' onClick={props.handleRegisterShowPassword} >
                 {props.registerShowPassword ? 'Hide' : 'Show'}
               </Button>
             </InputRightElement>
           </InputGroup>
         </FormControl>
-        <Button type="submit">Register</Button>
+        <Button type="submit" variant='main'>Register</Button>
       </form>
     </Stack>
   ) 

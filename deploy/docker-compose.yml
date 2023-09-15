@@ -4,14 +4,14 @@ services:
   frontend:
     build:
       context: ../frontend
-      # dockerfile: Dockerfile.frontend
     command: bash -c "npm run start:prod"
     container_name: recipe-finder-frontend
-
+    env_file:
+      - ../frontend/.env
+      
   backend:
     build:
       context: ../backend
-      # dockerfile: Dockerfile.backend
     command: gunicorn --bind backend:5000 app:app
     env_file:
       - ../backend/.env

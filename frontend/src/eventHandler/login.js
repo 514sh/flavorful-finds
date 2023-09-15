@@ -2,7 +2,6 @@ import userService from "../services/users"
 
 const handleSubmitLogin = async (e, setLoginUsername, setLoginPassword, loginUsername, loginPassword, setIsLoggedIn, toast) => {
   e.preventDefault()
-  console.log("im clicked")
   try{
 
     const user = {"username": loginUsername, "password": loginPassword}
@@ -35,11 +34,9 @@ const handleSubmitLogin = async (e, setLoginUsername, setLoginPassword, loginUse
 
 const handleSubmitRegister = async (e, setIsOpenRegisterModal, setRegisterUsername, setRegisterPassword, registerUsername, registerPassword, toast) => {
   e.preventDefault()
-  console.log("im clicked")
   try{
     const user = {"username": registerUsername, "password": registerPassword}
     const response = await userService.register(user)
-    console.log("response ",response)
     toast({
       position: "top",
       title: "Registration Alert",
@@ -64,13 +61,10 @@ const handleSubmitRegister = async (e, setIsOpenRegisterModal, setRegisterUserna
   setIsOpenRegisterModal(false)
 }
 
-const deleteCookie =(cookieName) => {
-  document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-}
 
 const handleLogout = (setLoginUsername, setLoginPassword) => {
-  deleteCookie("userId")
-  deleteCookie("authToken")
+  userService.deleteCookie("userId")
+  userService.deleteCookie("authToken")
   setLoginUsername("")
   setLoginPassword("")
 }

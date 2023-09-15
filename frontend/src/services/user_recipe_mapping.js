@@ -15,7 +15,6 @@ const getCookie = (cookieName) => {
 
 const addToFavorites = async newObject => {
   const token = getCookie('authToken');
-  console.log("my token", token)
   const config = {
     headers: { Authorization: `Bearer ${token}` }
   }
@@ -25,7 +24,6 @@ const addToFavorites = async newObject => {
 
 const getFavorites = async () => {
   const userId = getCookie("userId")
-  console.log("my id", userId)
   const response = await axios.get(`${baseUrl}/${userId}`)
   return response.data
 }

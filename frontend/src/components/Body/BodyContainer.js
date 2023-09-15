@@ -11,7 +11,6 @@ const BodyContainer = ({ children }) => {
       minH="70vh"
       px={8}
       mb={16}
-      mt="100px"
     >
       {children}
     </Flex>

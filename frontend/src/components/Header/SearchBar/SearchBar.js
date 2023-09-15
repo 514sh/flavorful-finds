@@ -10,6 +10,7 @@ const SearchBar = ({...props}) => {
         children={<SearchIcon color="gray.300" />}
       />
       <Input
+        focusBorderColor='primary.700'
         type="text"
         placeholder="Search..."
         borderRadius="full"

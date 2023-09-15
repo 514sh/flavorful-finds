@@ -28,10 +28,10 @@ const SearchModal = ({...props}) => {
           <SearchModalBody {...props} />
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={props.handleCloseModal}>
+          <Button variant='secondary' onClick={props.handleCloseModal}>
             Close
           </Button>
-          <Button mr={3} colorScheme="teal" onClick={props.handleSendSearch}>
+          <Button variant='main' onClick={props.handleSendSearch}>
             Send
           </Button>
         </ModalFooter>
