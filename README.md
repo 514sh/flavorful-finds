@@ -1,4 +1,4 @@
-# FlavorfulFinds.xyz
+# [FlavorfulFinds.xyz](http://flavorfulfinds.xyz)
 
 ![FlavorfulFinds Logo](frontend/build/images/logo.png)
 
