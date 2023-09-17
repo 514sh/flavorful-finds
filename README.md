@@ -85,7 +85,7 @@ The `deploy` directory contains Docker Compose files for containerization and de
 
 To start using the project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/yourusername/flavorfulfinds.xyz.git`
+1. Clone the repository: `git clone https://github.com/514sh/flavorful-finds.git`
 
 2. Navigate to the `deploy` directory: `cd deploy`
 
