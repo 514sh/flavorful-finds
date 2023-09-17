@@ -30,7 +30,6 @@ const MenuLinks = ({...props}) => {
           Search
         </MenuItem>
         <MenuItem to="/home"  setLocation={props.setLocation}>Home</MenuItem>
-        <MenuItem to="/about" setLocation={props.setLocation}>About</MenuItem>
         { userRecipeMappingService.getCookie("userId") && <MenuItem to="/favorites" setLocation={props.setLocation}>Favorites</MenuItem>}
         <MenuItem to="/login" onClick={props.handleLogout} setLocation={props.setLocation} isLast>
           <Button

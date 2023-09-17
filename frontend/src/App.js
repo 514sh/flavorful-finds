@@ -141,7 +141,6 @@ const App = () => {
                 />
               }
             />  
-            <Route path="/about" element={<p>about</p>} />
             <Route
               path="/favorites"
               element={
