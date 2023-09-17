@@ -1,20 +1,20 @@
 import pytest
 from application.repo.postgres.users import Users
 from application.repo.postgres.initialize import run_sql_script
-from application.utils.config import test_db_params
+from application.utils.config import db_params
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
 @pytest.fixture
 def new_user():
-    run_sql_script(db_params=test_db_params,
+    run_sql_script(db_params=db_params,
                    sql_file="application/repo/postgres/tables/drop_tables.sql")
-    run_sql_script(db_params=test_db_params,
+    run_sql_script(db_params=db_params,
                    sql_file="application/repo/postgres/tables/users.sql")
 
-    newUser = Users(test_db_params)
+    newUser = Users(db_params)
 
-    data = {"username": "test_admin", "password": "admin", "user_id": 1}
+    data = {"username": "test_admin", "password": "admin"}
     hashed_password = generate_password_hash(
         password=data["password"])
     data["hashed_password"] = hashed_password
@@ -24,6 +24,7 @@ def new_user():
 
 def test_user_get(new_user):
     user = new_user[0].get(new_user[1])
+    print(user)
     correct_pass = check_password_hash(
         new_user[1]["hashed_password"], new_user[1]["password"])
     assert user[0] == 1
